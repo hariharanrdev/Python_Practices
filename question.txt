@@ -1,0 +1,20 @@
+What is the difference between list and tuple in Python?
+Explain the use of 'self' in Python classes.
+How does Python manage memory?
+What are Python decorators and how are they used?
+Explain the difference between shallow copy and deep copy.
+What is the purpose of the 'with' statement in Python?
+How does Python handle exceptions? Give an example.
+What is the difference between 'is' and '==' in Python?
+Explain Python's Global Interpreter Lock (GIL).
+How do you create a virtual environment in Python?
+What are Python generators and how do they differ from iterators?
+Explain the difference between @staticmethod and @classmethod.
+How does Python implement multithreading?
+What is the difference between Python 2 and Python 3?
+How do you use list comprehensions in Python? Give an example.
+What is the purpose of the 'yield' keyword in Python?
+Explain how Python's garbage collection works.
+What are Python modules and packages?
+How does Python handle mutable vs immutable objects?
+Explain the difference between JSON and Pickle in Python.
