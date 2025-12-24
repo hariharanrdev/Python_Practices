@@ -52,3 +52,5 @@ Gowtham = Bank('Gowtham', 9874563210,'cbe',2000)
 Jeni = Bank('Jeni',978965413,'krr',4000)
 Cna = Bank('Cna',9874563210,'cbe',2000)
 madhu = Bank('madhu',9874563210,'cbe',2000)
+bala = Bank('bala',987654213,'madurai',5000)
+
