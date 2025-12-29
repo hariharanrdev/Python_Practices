@@ -6,7 +6,9 @@ class Bank:
     branch = 'Peelamaedu'
     ifsc = 'PBI00120'
     addr = 'nava india'
+
 # spcial magic methida for initialization for specific numbers or variables.
+# if i crearte an oject of the class this method will be called automatically.
 
     def __init__(self, name, mob, adr, bal):
         self.name = name
