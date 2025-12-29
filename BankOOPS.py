@@ -2,59 +2,85 @@ import datetime as dt
 import pandas as pd
 
 class Bank:
-    bname = 'power'
-    branch = 'Peelamaedu'
-    ifsc = 'PBI00120'
-    addr = 'nava india'
+    bname='Power'
+    branch='PLamedu'
+    ifsc='PBI00420'
+    addr='Spectra Building'
 
-# spcial magic methida for initialization for specific numbers or variables.
-# if i crearte an oject of the class this method will be called automatically.
+    def __init__(self,name,mob,adr,bal):
+        self.name=name
+        self.mob=mob
+        self.adr=adr
+        self.bal=bal
+        self.st={'Date':[''],'Desc':[''],'CR':[''],'DR':[''],'Bal':[self.bal]}
 
-    def __init__(self, name, mob, adr, bal):
-        self.name = name
-        self.mob = mob
-        self.adr = adr
-        self.bal = bal
-        self.st = {'Date': [], 'Desc': [], 'Cr': [], 'Dr': [], 'Bal': []}
-
-    def _update_st(self, desc, cr='-', dr='-', bal=0):
-        """Helper method to keep dictionary lengths consistent"""
-        self.st['Date'].append(dt.datetime.today().strftime('%Y-%m-%d'))
-        self.st['Desc'].append(desc)
-        self.st['Cr'].append(cr)
-        self.st['Dr'].append(dr)
-        self.st['Bal'].append(bal)
-
-    def deposit(self, amt):
+    def details(self):
+        print(f'===== Bank Details =====\n'
+              f'Bank Name: {self.bname}\n'
+              f'Branch: {self.branch}\n'
+              f'Ifc: {self.ifsc}\n'
+              f'Address: {self.addr}\n'
+              f'{"="*25}'
+              f'===== Cust Details =====\n'
+              f'Bank Name: {self.name}\n'
+              f'Branch: {self.branch}\n'
+              f'Ifc: {self.ifsc}\n'
+              f'Address: {self.addr}\n'
+              f'Balance: {self.bal}\n'
+              f'{"="*25}')
+        
+    def deposit(self,amt):
         if amt > 100:
             self.bal += amt
-            print(f'{amt} RS successfully Deposited. Total: {self.bal}')
-            self._update_st(f'Deposit', cr=amt, bal=self.bal)
+            print(f'{amt} RS Sucessfully Deposited\n'
+                  f'Your Total Bal: {self.bal}\n')
+            self.st['Date'].append(dt.datetime.today().date())
+            self.st['Desc'].append('Deposited')
+            self.st['CR'].append(amt)
+            self.st['DR'].append('-')
+            self.st['Bal'].append(self.bal)
         else:
-            print('Minimum deposit is 100')
-
-    def withdraw(self, amt):
-        if 100 < amt <= self.bal:
-            self.bal -= amt
-            print(f'{amt} RS successfully Withdrawn. Total: {self.bal}')
-            self._update_st(f'Withdrawal', dr=amt, bal=self.bal)
-        else:
-            print('Invalid amount or insufficient balance')
+            print('Enter Valid Amount')            
             
-    def transfer(self, amt, Per):
-        if 100 < amt <= self.bal:
+    def withdraw(self, amt):
+        if amt > 100 and amt <= self.bal:
             self.bal -= amt
-            Per.bal += amt
-            print(f'{amt} RS successfully Transferred to {Per.name}')
-            self._update_st(f'Transfer to {Per.name}', dr=amt, bal=self.bal)
-            Per._update_st(f'Transfer from {self.name}', cr=amt, bal=Per.bal)
+            print(f"{amt} Rs withdrawn successfully")
+            print(f"Your total balance: {self.bal}")
+            self.st['Date'].append(dt.datetime.today().date())
+            self.st['Desc'].append('Withdrawed')
+            self.st['CR'].append('-')
+            self.st['DR'].append(amt)
+            self.st['Bal'].append(self.bal)
         else:
-            print('Invalid amount or insufficient balance')
-    
-    def statement(self):
-        print(f"\n--- Statement for {self.name} ---")
-        df = pd.DataFrame(self.st)
-        print(df if not df.empty else "No transactions yet.")
+            print("Invalid withdraw amount")
 
-Gowtham = Bank('Gowtham', 9874563210, 'cbe', 2000)
-Bala = Bank('Bala', 987654213, 'madurai', 5000)
+    def transfer(self, amt, ben):
+        if amt > 100 and amt <= self.bal:
+            self.bal -= amt
+            ben.bal += amt
+            print(f"{amt} Rs transferred successfully")
+            print(f"Your balance: {self.bal}")
+            self.st['Date'].append(dt.datetime.today().date())
+            self.st['Desc'].append(f'Transfered from {self.name}')
+            self.st['CR'].append('-')
+            self.st['DR'].append(amt)
+            self.st['Bal'].append(self.bal)
+
+            ben.st['Date'].append(dt.datetime.today().date())
+            ben.st['Desc'].append(f'Transfer from {self.name}')
+            ben.st['CR'].append(amt)
+            ben.st['DR'].append('-')
+            ben.st['Bal'].append(ben.bal)
+        else:
+            print("Transfer failed")
+
+    def statement(self):
+        print(pd.DataFrame(self.st))
+        print('-'*30)
+         
+Gowtham = Bank('Gowtham',6381059233,'cbi',1000)
+Jeni = Bank('Jeni',8882291035,'karur',2000)
+Cna = Bank('Cna',9889978899,'Erode',4000)
+Madhu = Bank('Madhu',6367063670,'Chennai',5000)
+Arun = Bank('Arun',7332566110,'T Veli',3500)
